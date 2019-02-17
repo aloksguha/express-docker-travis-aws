@@ -16,22 +16,20 @@ app.use('/healthcheck', require('express-healthcheck')({
     }
 }));
 
-
-
 const port = 3000;
 
 let users = [
     { id: '1xyz', name:'Alok'},
     { id: '2xyz', name:'Akshansh'},
     { id: '3xyx', name:'Neena'}
-]
+];
 app.get('/', (req, res) => {
     res.json({message : 'Welcome to my user application'});
 })
 
 
 app.get('/users', (req,res) => {
-    res.json(users.slice())
+    res.json(users.slice());
 });
 
 app.get('/users/:id', (req,res) => {
@@ -43,22 +41,29 @@ app.get('/users/:id', (req,res) => {
 });
 
 app.post('/users', (req,res) => {
+    let id = Math.random().toString(36).substring(7);
     if(req.body.name){
         users.push({
-            id : Math.random().toString(36).substring(7),
+            id : id,
             name : req.body.name
         });
-        res.status(201).send();  
+        res.status(201).send(users.find(ele => {return ele.id == id}));  
     }else{
         res.status(502).json({error:'name not found in supplied data'});
     }  
 })
 
 app.delete('/users/:id', (req, res) => {
-
+    let data = users.find(ele => {return ele.id == req.params.id});  
+    users.splice(data, 1);  
+    res.status(202).json(data);
 })
 
+app.put('/users/:id', (req, res) => {
+    let data = users.find(ele => {return ele.id == req.params.id});  
+    data.name = req.params.name || data.name;
 
+})
 
 app.listen(port,(success)=>{
  console.log('express server started at '+port);
