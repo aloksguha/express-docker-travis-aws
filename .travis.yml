@@ -3,5 +3,3 @@ services:
   - docker
 script:
   - docker build -t express-docker:latest .
-deploy:
-  provider: script
