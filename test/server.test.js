@@ -13,7 +13,6 @@ describe('Server Tests', () => {
     //     console.log('before each');
     // });  
 
-    describe('GET /', () => {
         it('should get code as 200 for Path / ', (done) => {
             chai.request(server)
                 .get('/')
@@ -32,28 +31,7 @@ describe('Server Tests', () => {
                     res.should.have.status(404);
                     done();
                 })
-        }),
-        it('should get users', (done) => {
-            chai.request(server)
-                .get('/users')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('array');
-                    res.body.length.should.be.eql(3);
-                    done();
-                })
         })
-
-        it('should get healthcheck report', (done) => {
-            chai.request(server)
-                .get('/healthcheck')
-                .end((err, res) =>{
-                    res.should.have.status(200);
-                    done();
-                })
-        })
-
-    })
 })
 
 
