@@ -9,6 +9,11 @@ let should = chai.should();
 chai.use(chaiHttp);
 
 describe('Server health-check Tests', () => {
+    beforeEach((done) =>{
+        console.log('executing test as It');
+        done();
+    }); 
+    
     it('should get healthcheck report', (done) => {
         chai.request(server)
         .get('/healthcheck')
