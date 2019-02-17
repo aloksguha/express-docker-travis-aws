@@ -5,6 +5,7 @@ script:
   - docker build -t express-docker:latest .
 deploy:
   provider: script
+  script: bash echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.example.com
   script: bash docker push express-docker:latest
   on:
     branch: master
