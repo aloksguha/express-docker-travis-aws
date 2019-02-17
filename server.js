@@ -7,6 +7,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());                                    
 app.use(bodyParser.json({ type: 'application/json'}));  
 
+app.use('/healthcheck', require('express-healthcheck')({
+    healthy: function () {
+        return { everything: 'is ok' };
+    },
+    unhealthy: function(){
+        return { something : 'is not ok.'}
+    }
+}));
+
 
 
 const port = 3000;
@@ -48,6 +57,8 @@ app.post('/users', (req,res) => {
 app.delete('/users/:id', (req, res) => {
 
 })
+
+
 
 app.listen(port,(success)=>{
  console.log('express server started at '+port);

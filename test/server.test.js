@@ -43,6 +43,16 @@ describe('Server Tests', () => {
                     done();
                 })
         })
+
+        it('should get healthcheck report', (done) => {
+            chai.request(server)
+                .get('/healthcheck')
+                .end((err, res) =>{
+                    res.should.have.status(200);
+                    done();
+                })
+        })
+
     })
 })
 
