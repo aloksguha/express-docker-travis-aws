@@ -1,19 +1,8 @@
 sudo: required
 services:
   - docker
-
-before_install:
-  - './.travis/main.sh'
-    
 script:
   - docker build -t express-docker:latest .
 deploy:
   provider: script
-  on:
-    branch: master
-
-after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
-      make push-image ;
-    fi
+  script: back echo done.
