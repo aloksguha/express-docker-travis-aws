@@ -3,3 +3,17 @@ services:
   - docker
 script:
   - docker build -t express-docker:latest .
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "express-docker-1"
+  env: "ExpressDocker1-env"
+  bucket_name: "elasticbeanstalk-us-east-1-607348619222"
+  bucket_path: "express-docker-1"
+  on:
+    branch: master
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key:   
+    secure: "$AWS_SECRET_ACCESS_KEY"
+
