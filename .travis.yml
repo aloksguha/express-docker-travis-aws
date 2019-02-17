@@ -5,7 +5,7 @@ script:
   - docker build -t express-docker:latest .
 deploy:
   provider: script
-  script: bash docker_push
+  script: bash docker push express-docker:latest
   on:
     branch: master
 
