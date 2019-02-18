@@ -46,11 +46,11 @@ app.route('/users/:id')
   .put(users.updateUser)
   .delete(users.deleteUser);
 
-app.route('/user/apps/:userId')
-  .get(apps.getApps);
+app.route('/users/:userId/apps')
+  .get(apps.getApps)
+  .post(apps.createApp);
 
-app.route('/user/app/:userId')
-  .post(apps.createApp)
+app.route('/users/:userId/apps/:appId')
   .delete(apps.removeApp);
 
 app.listen(port, (success) => {
