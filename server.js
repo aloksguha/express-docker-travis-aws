@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to my user application'
   });
-})
+});
 
 app.route('/users')
   .get(users.getUsers)
@@ -55,6 +55,6 @@ app.route('/users/:userId/apps/:appId')
 
 app.listen(port, (success) => {
   console.log('express server started at : ' + port);
-})
+});
 
 module.exports = app;

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node --harmony server",
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "coverage": "nyc check-coverage --lines 75 --functions 85 --branches 75"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^13.3.0"
   }
 }
