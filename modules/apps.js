@@ -3,7 +3,7 @@ let apps = {};
 let getApps = (req, res) => {
   const userId = req.params.userId;
   res.json(apps[userId] || []);
-}
+};
 
 let createApp = (req, res) => {
   const userId = req.params.userId;
@@ -25,11 +25,10 @@ let createApp = (req, res) => {
 };
 
 let removeApp = (req, res) => {
-  const userId = req.params.userId;
-  const appId = req.body.appId;
-
+  const { userId, appId } = req.params;
   const userApps = apps[userId];
-  if (userApps && userApps.length) {
+
+  if (userApps && userApps.length && userApps.find(app => app.id === appId)) {
     if (userApps.length === 1) {
       delete apps[userId];
     } else if (userApps.length > 1) {
@@ -37,14 +36,14 @@ let removeApp = (req, res) => {
     }
   } else {
     res.json({
-      message: "App not found"
+      message: "App not found."
     });
   }
 
   res.json({
     message: "App Removed Successfully."
   });
-}
+};
 
 module.exports = {
   getApps,

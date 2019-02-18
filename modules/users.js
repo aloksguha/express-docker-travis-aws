@@ -25,7 +25,7 @@ var addUser = (req, res) => {
       name: req.body.name
     });
     res.status(201).send(users.find(ele => {
-      return ele.id == id
+      return ele.id === id
     }));
   } else {
     res.status(502).json({
