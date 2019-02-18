@@ -1,41 +1,60 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let app = express();
-let users = require('./modules/users');
 
-app.use(bodyParser.json());                                     
-app.use(bodyParser.urlencoded({extended: true}));               
-app.use(bodyParser.text());                                    
-app.use(bodyParser.json({ type: 'application/json'}));  
+let users = require('./modules/users');
+let apps = require('./modules/apps');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.text());
+app.use(bodyParser.json({
+  type: 'application/json'
+}));
 
 app.use('/healthcheck', require('express-healthcheck')({
-    healthy: function () {
-        return { everything: 'is ok' };
-    },
-    unhealthy: function(){
-        return { something : 'is not ok.'}
-    }
+  healthy: function() {
+    return {
+      everything: 'is ok'
+    };
+  },
+  unhealthy: function() {
+    return {
+      something: 'is not ok.'
+    };
+  }
 }));
 
 const port = 3000;
 
 
 app.get('/', (req, res) => {
-    res.json({message : 'Welcome to my user application'});
+  res.json({
+    message: 'Welcome to my user application'
+  });
 })
 
 app.route('/users')
-    .get(users.getUsers)
-    .post(users.addUser)
-    
+  .get(users.getUsers)
+  .post(users.addUser);
+
 
 app.route('/users/:id')
-    .get(users.getUser)
-    .put(users.updateUser)
-    .delete(users.deleteUser);
+  .get(users.getUser)
+  .put(users.updateUser)
+  .delete(users.deleteUser);
 
-app.listen(port,(success)=>{
- console.log('express server started at : '+port);
+app.route('/user/apps/:userId')
+  .get(apps.getApps);
+
+app.route('/user/app/:userId')
+  .post(apps.createApp)
+  .delete(apps.removeApp);
+
+app.listen(port, (success) => {
+  console.log('express server started at : ' + port);
 })
 
 module.exports = app;
