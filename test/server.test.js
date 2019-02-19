@@ -21,7 +21,7 @@ describe('Server Tests', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property('message');
-                    res.body.should.have.property('message').eql('Welcome to my user application');
+                    res.body.should.have.property('message').eql('Welcome to my user application.');
                     done();
                 })
         }),
